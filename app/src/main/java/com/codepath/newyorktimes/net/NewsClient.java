@@ -2,8 +2,8 @@ package com.codepath.newyorktimes.net;
 
 import com.codepath.newyorktimes.model.SearchFilter;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ public class NewsClient {
     }
 
     // Method for accessing the search API
-    public void searchArticles(final String query,int page, SearchFilter searchFilter, JsonHttpResponseHandler handler) {
+    public void searchArticles(final String query, int page, SearchFilter searchFilter, TextHttpResponseHandler handler) {
         RequestParams requestParams = new RequestParams();
         requestParams.put("api-key",API_KEY );
         requestParams.put("q", query);
