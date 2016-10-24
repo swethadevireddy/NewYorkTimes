@@ -10,6 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Created by sdevired on 10/21/16.
+ * Client for article search using AsyncHttpClient
+ */
 public class NewsClient {
     private static final String API_BASE_URL = "https://api.nytimes.com/svc/search/v2/";
     private static final String API_KEY= "aa37bbc7b4624a5a8c9628018d034fb2";

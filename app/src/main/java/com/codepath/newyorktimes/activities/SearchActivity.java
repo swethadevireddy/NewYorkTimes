@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,23 +86,16 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
         // Click Listener
         ItemClickSupport.addTo(rvArticles).setOnItemClickListener((recyclerView, position, v) -> {
             Article article = articles.get(position);
-          /*  Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
+           /*  Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
             Article article = articles.get(position);
             i.putExtra("article", article);
             startActivity(i);
-*/
+           */
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             builder.setToolbarColor(ContextCompat.getColor(this,R.color.colorPrimary));
             builder.setActionButton(chromeShareProvider.getBitmap(), "Share Link", chromeShareProvider.getPendingIntent(), true);
-
             CustomTabsIntent customTabsIntent = builder.build();
-
-
             customTabsIntent.launchUrl(this, Uri.parse(article.getWebUrl()));
-
-
-
-
         });
 
         rvArticles.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -156,6 +150,7 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
         return super.onCreateOptionsMenu(menu);
     }
 
+
     private void fetchNews(int page) {
         client = new NewsClient();
         client.searchArticles(searchQuery, page, searchFilter,  new TextHttpResponseHandler() {
@@ -165,6 +160,7 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
             public void onSuccess(int statusCode, Header[] headers, String res) {
                 Gson gson = new GsonBuilder().create();
                 ApiResponse response = gson.fromJson(res, ApiResponse.class);
+                Log.d("DEBUG", "Response: " + response.toString());
                 int curSize = adapter.getItemCount();
                 ArrayList<Article> newArticles = Article.fromDocs(response.getResponse().getDocs());
                 articles.addAll(newArticles);
@@ -203,6 +199,7 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
 
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                Log.d("DEBUG", "Response: " + response.toString());
                 ApiResponse  apiResponse = response.body();
                 if(apiResponse != null && apiResponse.getResponse() != null && apiResponse.getResponse().getDocs() != null) {
                     ArrayList<Article> newArticles = Article.fromDocs(response.body().getResponse().getDocs());
@@ -226,7 +223,6 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
 
         switch (id){
             case R.id.action_settings:
-                //showSettings();
                 showSettingsDialog();
                 return true;
             default:

@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by sdevired on 10/23/16.
+ * Client for article search using Retrofit
  */
 public class NewYorkSearchClient {
 

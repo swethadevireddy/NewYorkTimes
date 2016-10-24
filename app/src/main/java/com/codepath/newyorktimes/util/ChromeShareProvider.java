@@ -10,7 +10,9 @@ import com.codepath.newyorktimes.activities.R;
 
 /**
  * Created by sdevired on 10/23/16.
+ * util class for showing custom share provider
  */
+
 public class ChromeShareProvider {
     Bitmap bitmap;
 
@@ -40,7 +42,6 @@ public class ChromeShareProvider {
 
         //pending intent
         int requestCode = 100;
-
          pendingIntent = PendingIntent.getActivity(activity,
                 requestCode,
                 intent,
