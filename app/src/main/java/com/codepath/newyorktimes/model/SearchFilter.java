@@ -2,6 +2,7 @@ package com.codepath.newyorktimes.model;
 
 /**
  * Created by sdevired on 10/22/16.
+ * model class for search settings.
  */
 public class SearchFilter {
     public String getBeginDate() {

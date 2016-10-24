@@ -60,10 +60,11 @@ public class SearchActivity extends AppCompatActivity implements SettingsDialogF
         setContentView(R.layout.activity_search);
 
         //Toolbar toolbar = binding.toolbarinclude.toolbar;
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar) ;
+       /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar) ;
 
         setSupportActionBar(toolbar);
-     */   //binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+      */
+        //binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         rvArticles = (RecyclerView) findViewById(R.id.rvArticles);
         if(searchFilter == null){
            searchFilter = new SearchFilter();

@@ -64,6 +64,12 @@ public class Article implements Parcelable {
 
     }
 
+    /**
+     * used if we get JSONObject when AyscHttpClient is used to retrieve data.
+     * @param jsonArray
+     * @return
+     */
+
     public static ArrayList<Article> fromJsonArray(JSONArray jsonArray) {
         ArrayList<Article> articles = new ArrayList<Article>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -77,6 +83,12 @@ public class Article implements Parcelable {
         return articles;
     }
 
+
+    /**
+     * retrieve articles from Doc.
+     * @param docs
+     * @return
+     */
     public static ArrayList<Article> fromDocs(List<Doc> docs) {
         ArrayList<Article> articles = new ArrayList<Article>();
         for (int i = 0; i < docs.size(); i++) {
@@ -87,6 +99,10 @@ public class Article implements Parcelable {
         return articles;
     }
 
+    /**
+     * Article from Doc
+     * @param doc
+     */
     public Article(Doc doc) {
         this.webUrl = doc.getWebUrl();
         this.headline = doc.getHeadline().getMain();
@@ -131,13 +147,14 @@ public class Article implements Parcelable {
         }
     };
 
+
     public Category getCategory() {
         if (thumbNail != null && !thumbNail.isEmpty()) {
             return Category.WITH_IMAGE;
         }
         return Category.WITH_OUT_IMAGE;
     }
-
+    //for heterogeneous view
     public enum Category {
         WITH_IMAGE, WITH_OUT_IMAGE
     }

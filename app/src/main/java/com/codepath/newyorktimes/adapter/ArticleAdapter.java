@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by sdevired on 10/20/16.
+ * RecyclerView Adapter to populate Article data
  */
 public class ArticleAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -25,13 +26,14 @@ public class ArticleAdapter extends
         this.articles = articles;
     }
 
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         RecyclerView.ViewHolder viewHolder;
 
-        // Inflate the custom layout
+        // Inflate the custom layout based on the viewtype
         if(viewType == Article.Category.WITH_IMAGE.ordinal()){
             View articleView = inflater.inflate(R.layout.item_article_image, parent, false);
             viewHolder = new ItemArticleImageViewHolder(articleView);
@@ -39,9 +41,15 @@ public class ArticleAdapter extends
             View articleView = inflater.inflate(R.layout.item_article_title, parent, false);
             viewHolder = new ItemArticleTitleViewHolder(articleView);
         }
+
         return viewHolder;
     }
 
+    /**
+     * method to load the data into the view
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // Get the data model based on position
@@ -54,12 +62,18 @@ public class ArticleAdapter extends
             Glide.with(viewHolder.itemView.getContext())
                     .load(article.getThumbNail())
                     .into(viewHolder.ivThumbNail);
-         }else{
+        }else{
             ItemArticleTitleViewHolder viewHolder = (ItemArticleTitleViewHolder) holder;
             viewHolder.tvHeadLine.setText(article.getHeadline());
         }
     }
 
+
+    /**
+     * returns article view for heterogeneous layout
+     * @param position
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
         Article article = articles.get(position);
@@ -73,7 +87,9 @@ public class ArticleAdapter extends
     }
 
 
-
+    /**
+     * method to clear the adapter
+     */
     public void clear(){
         final int size = getItemCount();
         articles.clear();

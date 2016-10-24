@@ -23,27 +23,36 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-
+/**
+ * Created by sdevired on 10/21/16.
+ * Diaglog Fragment for settings
+ */
 public class SettingsDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
+    //Databinding
     private FragmentSettingsBinding binding;
+    //model holding searchsettings
     private SearchFilter searchFilter;
     private SettingsDialogListener listener;
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.sort_order, android.R.layout.simple_spinner_dropdown_item);
+
         binding.sortOrder.setAdapter(adapter);
-        //set the priority in edit dialog if present from the main activity
+        //set the sortorder if present
         if (searchFilter.getSortOrder() != null) {
             int selectionPosition = adapter.getPosition(searchFilter.getSortOrder());
             binding.sortOrder.setSelection(selectionPosition);
         }
+        //set checkbox if present
         binding.arts.setChecked(searchFilter.getArts());
         binding.sports.setChecked(searchFilter.getSports());
         binding.fashion.setChecked(searchFilter.getFashionStyle());
 
+        //register onclick listener for save button
         binding.btnSave.setOnClickListener(v -> {
             searchFilter.setBeginDate(binding.beginDate.getText().toString());
             searchFilter.setSortOrder(binding.sortOrder.getSelectedItem().toString());
@@ -54,6 +63,8 @@ public class SettingsDialogFragment extends DialogFragment implements DatePicker
             dismiss();
 
         });
+        //setup datepicker
+
         addDatePicker();
     }
 
@@ -61,13 +72,11 @@ public class SettingsDialogFragment extends DialogFragment implements DatePicker
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        //setup binding object
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         return  binding.getRoot();
     }
 
-    public SearchFilter getSearchFilter() {
-        return searchFilter;
-    }
 
     public void setSearchFilter(SearchFilter searchFilter) {
         this.searchFilter = searchFilter;
@@ -90,6 +99,7 @@ public class SettingsDialogFragment extends DialogFragment implements DatePicker
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         final DatePickerDialog datePickerDialog = new DatePickerDialog(binding.beginDate.getContext(), this, year, month, day);
+        //register listener when editext is clicked.
         binding.beginDate.setOnClickListener(v -> datePickerDialog.show());
     }
 

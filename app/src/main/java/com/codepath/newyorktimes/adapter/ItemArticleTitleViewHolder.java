@@ -8,6 +8,7 @@ import com.codepath.newyorktimes.activities.R;
 
 /**
  * Created by sdevired on 10/23/16.
+ * Viewholder for headline view
  */
 public class ItemArticleTitleViewHolder extends RecyclerView.ViewHolder{
     // for any view that will be set as you render a row

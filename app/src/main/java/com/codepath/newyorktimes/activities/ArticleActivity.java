@@ -18,6 +18,7 @@ import com.codepath.newyorktimes.model.Article;
 
 /**
  * Created by sdevired on 10/22/16.
+ * Activity to sow the embedded webview
  */
 public class ArticleActivity extends AppCompatActivity {
 
@@ -28,16 +29,20 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
+        //to display home icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_article);
         Intent intent = getIntent();
         final Article article = intent.getParcelableExtra("article");
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
+        //set actionbar title
+        if(actionBar != null) {
             actionBar.setTitle(article.getHeadline());
-        binding.wvArticle.setWebViewClient(new WebViewClient(){
+        }
 
+        binding.wvArticle.setWebViewClient(new WebViewClient(){
+            //override this method to embed webview in app.
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
